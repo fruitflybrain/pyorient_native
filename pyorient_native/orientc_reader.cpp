@@ -13,17 +13,11 @@ char* PyString_AsString(PyObject* obj){
   if (PyUnicode_Check(obj)) {
     char* rv;
     PyObject * byte_obj = PyUnicode_AsEncodedString(obj, "ASCII", "strict");
-    rv = PyBytes_AsString(byte_obj);
-    Py_XDECREF(byte_obj);
-    return rv;
+    return PyBytes_AsString(byte_obj);
   } else if (PyBytes_Check(obj)) {
     return PyBytes_AsString(obj);
   } else {
-    char* rv;
-    PyObject* byte_obj = PyObject_Str(obj);
-    rv = PyString_AsString(byte_obj);
-    Py_XDECREF(byte_obj);
-    return rv;
+    return PyString_AsString(PyObject_Str(obj));
   }
 }
 #endif
