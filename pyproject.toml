@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyorient_native"
+version = "1.3.1"
+description = "OrientDB Binary Serialization package for python"
+authors = [{ name = "Nikul Ukani", email = "nhu2001@columbia.edu" }]
+
+[project.urls]
+Homepage = "https://github.com/nikulukani/pyorient_native"
+Download = "https://github.com/fruitflybrain/pyorient_native/archive/1.3.1.tar.gz"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyorient_native*"]
+
+[tool.setuptools]
+ext-modules = [
+  { name = "pyorient_native",
+    sources = [
+      "pyorient_native/orientc_reader.cpp",
+      "pyorient_native/orientc_writer.cpp",
+      "pyorient_native/helpers.cpp",
+      "pyorient_native/parse_exception.cpp",
+      "pyorient_native/listener.cpp",
+      "pyorient_native/encoder.cpp",
+      "pyorient_native/pyorient_native.cpp"
+    ],
+    depends = [
+      "pyorient_native/orientc_reader.h",
+      "pyorient_native/orientc_writer.h",
+      "pyorient_native/orientc.h",
+      "pyorient_native/helpers.h",
+      "pyorient_native/parse_exception.h",
+      "pyorient_native/listener.h",
+      "pyorient_native/encoder.h",
+      "pyorient_native/pendian.h"
+    ],
+    include-dirs = ["./pyorient_native"],
+    language = "c++",
+    libraries = ["stdc++"]
+  }
+]
